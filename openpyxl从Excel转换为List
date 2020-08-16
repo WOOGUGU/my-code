@@ -1,0 +1,10 @@
+def excel_to_json(file_name):
+    wb = load_workbook(file_name)
+    all_data = defaultdict(list)
+    for sheet_name in wb.sheetnames:
+        rows = list(wb[sheet_name].rows)
+        title = [i.value for i in rows[0]]
+        for row in rows[1:]:
+            data = [i.value for i in row]
+            all_data[sheet_name].append(dict(zip(title, data)))
+    return all_data
